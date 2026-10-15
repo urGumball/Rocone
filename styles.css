@@ -1986,7 +1986,7 @@ a {
   border: 1px solid color-mix(in srgb, var(--accent) 40%, var(--line));
   border-radius: 5px;
   background: color-mix(in srgb, var(--accent) 9%, var(--surface));
-  color: var(--text-muted);
+  color: var(--muted);
   font-size: 13px;
   line-height: 1.5;
 }
@@ -2017,7 +2017,7 @@ a {
   padding: 5px 9px;
   border-radius: 4px;
   background: var(--surface-hover);
-  color: var(--text-muted);
+  color: var(--muted);
   font-size: 12px;
 }
 
@@ -2025,6 +2025,86 @@ a {
 .admin-game-list {
   display: grid;
   gap: 11px;
+}
+
+.admin-account-search {
+  max-width: 520px;
+  margin-bottom: 12px;
+}
+
+.admin-account-directory-list {
+  display: grid;
+  gap: 8px;
+}
+
+.admin-account-directory-row {
+  border: 1px solid var(--line);
+  border-radius: 5px;
+}
+
+.admin-account-directory-row[hidden] {
+  display: none;
+}
+
+.admin-account-directory-row > summary {
+  display: grid;
+  grid-template-columns: minmax(180px, 1.5fr) minmax(90px, 0.7fr) minmax(70px, 0.5fr) minmax(155px, 1fr);
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  color: var(--text);
+  cursor: pointer;
+  list-style: none;
+}
+
+.admin-account-directory-row > summary::-webkit-details-marker {
+  display: none;
+}
+
+.admin-account-directory-identity {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 9px;
+}
+
+.admin-account-directory-identity > span {
+  display: grid;
+  min-width: 0;
+  gap: 3px;
+}
+
+.admin-account-directory-identity strong,
+.admin-account-directory-identity small,
+.admin-account-directory-date {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.admin-account-directory-identity small,
+.admin-account-directory-date {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.admin-account-directory-meta {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.admin-account-directory-details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  padding: 10px 12px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.admin-account-directory-empty {
+  margin: 10px 0 0;
 }
 
 .admin-user-row {
@@ -2062,7 +2142,7 @@ a {
 .admin-user-info span,
 .admin-game-row span {
   overflow-wrap: anywhere;
-  color: var(--text-muted);
+  color: var(--muted);
   font-size: 12px;
 }
 
@@ -2070,7 +2150,7 @@ a {
   display: grid;
   min-width: 0;
   gap: 5px;
-  color: var(--text-muted);
+  color: var(--muted);
   font-size: 12px;
 }
 
@@ -2105,6 +2185,14 @@ a {
 }
 
 @media (max-width: 700px) {
+  .admin-account-directory-row > summary {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .admin-account-directory-date {
+    grid-column: 1 / -1;
+  }
+
   .admin-user-row {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   }
@@ -2157,7 +2245,7 @@ a {
   border: 1px solid var(--line);
   border-radius: 4px;
   background: transparent;
-  color: var(--text-muted);
+  color: var(--muted);
   cursor: pointer;
   font-size: 20px;
   line-height: 1;
@@ -2240,6 +2328,29 @@ a {
   font-size: 13px;
 }
 
+.admin-signup-options {
+  display: grid;
+  gap: 10px;
+  margin-top: 4px;
+  padding: 15px;
+  border: 1px solid color-mix(in srgb, var(--accent) 35%, var(--line));
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--accent) 5%, var(--surface));
+}
+
+.admin-signup-options h2 {
+  margin: 0;
+  color: var(--text);
+  font-size: 14px;
+}
+
+.admin-signup-options > p {
+  margin: -4px 0 2px;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.5;
+}
+
 .admin-create-form > button,
 .admin-site-form > button {
   justify-self: start;
@@ -2311,6 +2422,324 @@ a {
 
   .admin-password-controls .admin-field {
     width: 100%;
+  }
+}
+
+.profile-page {
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.profile-page-banner {
+  display: flex;
+  min-height: 220px;
+  align-items: end;
+  gap: 22px;
+  padding: 26px;
+  background: linear-gradient(135deg, #69b6db, #405e9f);
+  color: #fff;
+}
+
+.profile-background-sunset .profile-page-banner {
+  background: linear-gradient(135deg, #f3a477, #a14968);
+}
+
+.profile-background-ocean .profile-page-banner {
+  background: linear-gradient(135deg, #58c5d5, #24517e);
+}
+
+.profile-background-garden .profile-page-banner {
+  background: linear-gradient(135deg, #98d685, #3c7960);
+}
+
+.profile-background-midnight .profile-page-banner {
+  background: linear-gradient(135deg, #555c9c, #252745);
+}
+
+.profile-background-royal .profile-page-banner {
+  background: linear-gradient(135deg, #c7a0ee, #573f91);
+}
+
+.profile-page-avatar {
+  display: grid;
+  width: 150px;
+  height: 150px;
+  flex: 0 0 150px;
+  place-items: center;
+  overflow: hidden;
+  border-radius: 8px;
+  background: #ffffffd9;
+}
+
+.profile-page-avatar svg {
+  width: 100%;
+  height: 100%;
+}
+
+.profile-page-intro {
+  min-width: 0;
+  flex: 1;
+}
+
+.profile-page-intro h1 {
+  margin: 4px 0 8px;
+  font-size: clamp(26px, 5vw, 40px);
+  overflow-wrap: anywhere;
+}
+
+.profile-page-intro .profile-id {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.profile-page-intro .friend-status {
+  color: #fff;
+}
+
+.profile-page-banner > .primary-button,
+.profile-page-banner > .secondary-button {
+  flex: 0 0 auto;
+}
+
+.profile-page-content {
+  display: grid;
+  gap: 22px;
+  padding: 22px;
+}
+
+.profile-summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  color: var(--muted);
+}
+
+.profile-background-controls > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.profile-games .game-grid {
+  margin-top: 12px;
+}
+
+.chat-layout {
+  display: grid;
+  grid-template-columns: minmax(180px, 260px) minmax(0, 1fr);
+  gap: 14px;
+}
+
+.chat-friend-list {
+  display: grid;
+  align-content: start;
+  gap: 7px;
+}
+
+.chat-friend {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 9px;
+  padding: 8px;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+  text-align: left;
+}
+
+.chat-friend.active,
+.chat-friend:hover {
+  border-color: var(--line);
+  background: var(--surface-hover);
+}
+
+.chat-friend > span:last-child {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.chat-conversation {
+  display: flex;
+  min-height: 420px;
+  flex-direction: column;
+}
+
+.chat-heading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--line);
+}
+
+.chat-messages {
+  display: flex;
+  min-height: 270px;
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 9px;
+  padding: 14px 0;
+}
+
+.chat-message {
+  max-width: min(82%, 560px);
+  padding: 9px 12px;
+  border-radius: 10px 10px 10px 2px;
+  background: var(--surface-raised);
+  overflow-wrap: anywhere;
+}
+
+.chat-message.own {
+  align-self: flex-end;
+  border-radius: 10px 10px 2px 10px;
+  background: color-mix(in srgb, var(--accent) 19%, var(--surface));
+}
+
+.chat-message p {
+  margin: 0;
+  color: var(--text);
+  white-space: pre-wrap;
+}
+
+.chat-message time {
+  display: block;
+  margin-top: 5px;
+  color: var(--muted);
+  font-size: 10px;
+}
+
+.chat-compose {
+  display: flex;
+  align-items: end;
+  gap: 9px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+}
+
+.chat-compose .text-area {
+  min-height: 44px;
+  max-height: 120px;
+}
+
+.chat-empty {
+  display: grid;
+  align-content: center;
+  justify-items: start;
+  flex: 1;
+  gap: 8px;
+}
+
+.moderation-report {
+  display: grid;
+  gap: 9px;
+  padding: 13px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+}
+
+.moderation-report > div:first-child {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.moderation-report blockquote {
+  margin: 0;
+  padding: 8px 12px;
+  border-left: 3px solid var(--danger);
+  background: var(--surface-raised);
+  color: var(--text);
+  overflow-wrap: anywhere;
+}
+
+.moderation-report blockquote p {
+  margin: 3px 0;
+}
+
+.game-icon-picker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 8px;
+}
+
+.game-icon-choice {
+  display: grid;
+  width: 38px;
+  height: 38px;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  background: var(--surface-raised);
+  color: var(--text);
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.game-icon-choice.selected {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent);
+}
+
+.game-reward-controls {
+  display: grid;
+  grid-template-columns: minmax(90px, 1fr) minmax(90px, 1fr);
+  gap: 8px;
+  margin-top: 7px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (max-width: 650px) {
+  .profile-page-banner {
+    min-height: 190px;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    padding: 18px;
+  }
+
+  .profile-page-avatar {
+    width: 104px;
+    height: 104px;
+    flex-basis: 104px;
+  }
+
+  .profile-page-banner > .primary-button,
+  .profile-page-banner > .secondary-button {
+    margin-left: 116px;
+  }
+
+  .chat-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .chat-friend-list {
+    display: flex;
+    overflow-x: auto;
+  }
+
+  .chat-friend {
+    flex: 0 0 auto;
   }
 }
 
@@ -2674,7 +3103,7 @@ body {
 }
 
 .classic-customize-link:hover {
-  color: #fff;
+  color: var(--accent);
   text-decoration: underline;
 }
 
@@ -2739,7 +3168,7 @@ body {
 }
 
 .classic-friend-card:hover .classic-friend-name {
-  color: white;
+  color: var(--accent);
   text-decoration: underline;
 }
 
@@ -2755,7 +3184,7 @@ body {
   display: block;
   width: 100%;
   overflow: hidden;
-  color: #f5f5f5;
+  color: var(--text);
   font-size: 15px;
   text-align: center;
   text-overflow: ellipsis;
@@ -2772,7 +3201,7 @@ body {
   border: 1px solid var(--line);
   border-radius: 50%;
   background: var(--surface-raised);
-  color: white;
+  color: var(--text);
   cursor: pointer;
 }
 
@@ -3658,5 +4087,100 @@ body {
 
   .auth-heading {
     font-size: 15px;
+  }
+}
+
+.shape-controls {
+  display: grid;
+  gap: 14px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: var(--surface);
+}
+
+.shape-control {
+  display: grid;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.shape-control > span {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.shape-control output {
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+
+.shape-control input {
+  width: 100%;
+  accent-color: var(--accent);
+}
+
+.presence-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin-right: 6px;
+  border-radius: 50%;
+  background: #929aa7;
+}
+
+.status-online .presence-dot {
+  background: #35b86b;
+}
+
+.status-playing .presence-dot {
+  background: #7b68ee;
+}
+
+.status-idle .presence-dot {
+  background: #e9ad45;
+}
+
+.status-dnd .presence-dot {
+  background: #e35d69;
+}
+
+.header-presence-dot {
+  margin: 0 0 0 7px;
+  vertical-align: middle;
+}
+
+.friend-row {
+  flex-wrap: wrap;
+}
+
+.settings-contact-form {
+  display: grid;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.my-game-entry {
+  min-width: 0;
+}
+
+.my-game-edit {
+  width: 100%;
+  margin-top: 8px;
+}
+
+@media (max-width: 760px) {
+  .friends-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .friend-row {
+    gap: 9px;
+  }
+
+  .friend-row .friend-details {
+    flex-basis: calc(100% - 75px);
   }
 }

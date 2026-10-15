@@ -1,51 +1,63 @@
 # Rocone
 
-Rocone is a browser-based, retro-inspired games portal built from plain HTML,
-CSS, and JavaScript. No build step, account with an external service, package
-installation, or server is needed.
+Rocone is a Roblox-2020-inspired demo built with plain HTML, CSS, JavaScript,
+and a Python standard-library server. SQLite keeps accounts and community data
+across browsers that connect to the same Rocone server.
 
-## Run
+## Run on this computer
 
-Open `index.html` in a modern browser, or serve this folder locally:
+From the project folder, run:
 
-```sh
-python -m http.server 8000
+```powershell
+python server.py
 ```
 
-Then open `http://localhost:8000`. Using localhost is recommended: it makes
-secure password hashing available across browsers and avoids `file://` storage
-restrictions.
+Then open `http://127.0.0.1:8000`. The server creates its SQLite database at
+`%LOCALAPPDATA%\Rocone\rocone.sqlite3` (or `~/Rocone/rocone.sqlite3` if
+`LOCALAPPDATA` is unavailable). Set `ROCONE_DB_PATH` to choose another
+database location.
 
-## What works
+## Features
 
-- Create accounts, log in, sign out, choose from saved accounts at login, and
-  switch or remove saved accounts in the same browser.
-- Browse built-in and player-created games; publish your own games from the
-  creator, save favorite games, and play the short arcade mini-game.
-- Add or remove friends, find community demo profiles, and connect multiple
-  accounts in the same browser.
-- Customize your avatar, buy shop accessories with Cones or Pix, and equip
-  things from your closet.
-- Switch between midnight and daylight themes.
-- Sign in as the built-in `Admin` or `Rocone` demo administrator to create real
-  or fake local accounts, edit duplicate display names and balances, set
-  passwords, grant infinite Cones or Pix, customize avatars, grant or remove
-  administrator roles, and ban or restore accounts and games.
-- Use the local administration page to customize portal branding, announcements,
-  and theme colors. Saved-account selection allows accounts with duplicate
-  display names to be chosen individually.
+- Sign up, log in, switch accounts, and retain account records in SQLite.
+  Logging out or hiding an account from one device's switcher does not delete
+  the account. Administrators can permanently delete fake accounts.
+- Unique player IDs are shown prominently on dedicated profiles. Fake accounts
+  receive unique IDs with the `f4k3-` prefix; administrators can change IDs
+  without leaving duplicate IDs or broken friend/message references.
+- Build and edit games with descriptions, icons, built-in game modes, covers,
+  and configurable completion rewards. Every five starts of a created game,
+  its creator receives either 5 Cones or 15 Pix at random.
+- Send and accept friend requests, see account presence, and chat with accepted
+  friends. Five filtered swear-word occurrences in messages within ten seconds
+  create a report for the root administrator account ID 1 (`urGumball`). An
+  administrator chooses whether to warn, ban, or dismiss each report.
+- Customize avatars, body proportions, accessories, profile backgrounds,
+  currency, and site appearance. Light/dark theme selection is stored per
+  account on each device, so changing a theme on one device does not change it
+  on another.
+- Account ID `1` is reserved for the root administrator `urGumball`. Admin
+  controls include a searchable directory of every account saved on the
+  connected server (including root admins, fake accounts, and banned accounts),
+  plus ID changes, fake-account deletion, currency/role/password changes,
+  fake-account impersonation, game moderation, and report review. Passwords
+  and password hashes are not shown in the directory.
 
-## About saved data
+## Important demo limitations
 
-Account names, a PBKDF2 password hash (not the original password), avatars,
-friends, balances, purchases, created games, ban status, and settings are saved
-in this browser's local storage. Passwords are not sent to a server; clearing
-the browser's site data also removes these accounts and their saved games.
-Administrator tools are a local demo feature, not secure website administration:
-the app has no server-side authentication or shared user database, and saved
-data can be changed by anyone with access to this browser. A real Rocone service
-needs a separately hosted backend with server-enforced roles and moderation.
-Passwords are stored only as salted PBKDF2 hashes. Fake/demo accounts receive a
-random password that is not shown; an administrator must set a new password
-before signing into one. The built-in administrator identities cannot be
-renamed, banned, or demoted.
+This is **not safe to expose as a public website**. The browser currently
+performs login and admin checks, and `/api/state` has no server-side
+authentication or authorization; anyone who can reach that API can read or
+replace the shared database snapshot, including account password hashes and
+optional contact fields. The server binds to loopback by default and refuses
+network binding unless `ROCONE_ALLOW_UNAUTHENTICATED_NETWORK=1` is explicitly
+set. Only use network access on a trusted private network, and do not port
+forward or deploy it to the public internet. A public service needs a
+server-authenticated account API and server-enforced admin permissions.
+
+The shared API uses a SQLite revision check and merges unrelated concurrent
+updates, but it is not a production synchronization or security service.
+Presence and chat update when a page reloads; there is no live push service.
+Game scripts are not arbitrary JavaScript: games use the supported built-in
+mini-game modes to avoid executing untrusted code. Email and phone are optional,
+unverified demo fields and are not used for account recovery.
